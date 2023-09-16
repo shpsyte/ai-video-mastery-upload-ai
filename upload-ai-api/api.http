@@ -1,0 +1,46 @@
+
+
+// simpel get
+# @name hello
+GET http://localhost:3333/
+
+###
+# @name prompts
+
+GET http://localhost:3333/prompts
+Accept: application/json
+ 
+###
+
+# @name upload
+POST http://localhost:3333/upload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.mp3"
+Content-Type: audio/mpeg
+
+< ./example.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name transcription
+POST http://localhost:3333/videos/5a6b97c0-9cdc-4595-8d2c-344c14e34dea/transcription
+Content-Type: application/json
+
+{
+  "prompt": "Hello world"
+}
+
+###
+
+# @name generate ai
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "videoId": "5a6b97c0-9cdc-4595-8d2c-344c14e34dea",
+  "temperature": 0.5,
+  "prompt": "Gera algo desse nideo ***{trans}***"
+}
